@@ -1,0 +1,17 @@
+/* Standalone styles for the homepage preview; existing site stylesheet unchanged. */
+.gq-home { color: #263746; }
+.gq-intro { max-width: 1100px; margin: 0 auto; padding: 64px 30px 42px; }
+.gq-eyebrow { margin: 0 0 16px; color: #8b6750; font-size: .82rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+.gq-intro h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(2.2rem, 4.3vw, 4.3rem); line-height: 1.12; letter-spacing: -.025em; margin: 0 0 20px; }
+.gq-lead { max-width: 800px; font-size: clamp(1.1rem, 1.6vw, 1.45rem); line-height: 1.6; margin: 0; color: #52636c; }
+.gq-hero { margin: 0; width: 100%; }
+.gq-hero img { display: block; width: 100%; height: auto; max-height: 570px; object-fit: cover; object-position: center center; }
+.gq-hero figcaption { padding: 9px 30px; font-size: .75rem; color: #66777d; background: #eee9df; }
+.gq-sections { max-width: 1160px; margin: 0 auto; padding: 68px 30px 40px; display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 30px; }
+.gq-panel { border-top: 3px solid #d6c4a5; padding: 20px 4px 14px; }
+.gq-panel-number { font-size: .8rem; letter-spacing: .13em; color: #a45d4b; font-weight: 700; }
+.gq-panel h2 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(1.45rem, 2.2vw, 2rem); line-height: 1.2; margin: 13px 0 15px; }
+.gq-panel p { color: #52636c; line-height: 1.65; margin: 0 0 24px; }
+.gq-link-label { color: #86523e; font-weight: 700; border-bottom: 1px solid #c5a991; padding-bottom: 4px; }
+.gq-preview-note { max-width: 1100px; margin: 0 auto; padding: 0 30px 65px; font-size: .8rem; color: #66777d; }
+@media (max-width: 760px) { .gq-intro { padding: 42px 20px 30px; } .gq-hero figcaption { padding: 10px 20px; } .gq-sections { grid-template-columns: 1fr; gap: 12px; padding: 35px 20px 25px; } .gq-preview-note { padding: 0 20px 40px; } }
