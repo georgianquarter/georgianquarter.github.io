@@ -1,0 +1,9 @@
+title: Liverpool Georgian Quarter
+description: A community website for Liverpool's Georgian Quarter
+url: "https://georgianquarter.org.uk"
+baseurl: ""
+
+markdown: kramdown
+exclude:
+  - README.md
+  - vendor
