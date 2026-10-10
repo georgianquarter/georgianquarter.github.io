@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
     const container = document.getElementById("quarter-map");
 
     if (!container || typeof L === "undefined") {
@@ -6,10 +7,13 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    // Initialise the Leaflet map
     const map = L.map("quarter-map", {
-        scrollWheelZoom: false
-    }).setView([53.3990, -2.9690], 15);
+        scrollWheelZoom: false,
+        zoomSnap: 0.1
+    });
 
+    // OpenStreetMap tiles
     L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         {
@@ -33,23 +37,24 @@ document.addEventListener("DOMContentLoaded", function () {
         "not a statutory conservation-area designation.</p>"
     );
 
-
-    const bounds = L.latLngBounds([]);
-
+    // Add landmark markers
     quarterLandmarks.forEach(function (place) {
+
         L.marker(place.coords)
             .addTo(map)
             .bindPopup(
-                "<strong>" + place.name + "</strong><p>" +
-                place.description + "</p>"
+                "<strong>" + place.name + "</strong>" +
+                "<p>" + place.description + "</p>"
             );
 
-        bounds.extend(place.coords);
     });
 
-map.fitBounds(bounds, {
-    padding: [25, 25],
-    maxZoom: 16
-});
+    // Automatically centre and zoom to the Georgian Quarter boundary
+    map.fitBounds(boundaryLayer.getBounds(), {
+        padding: [20, 20]
+    });
+
+    // Increase the initial zoom by half a level
+    map.setZoom(map.getZoom() + 0.1);
 
 });
