@@ -1,0 +1,36 @@
+
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+>
+
+<div
+  id="quarter-map"
+  role="region"
+  aria-label="Interactive map of Liverpool's Georgian Quarter">
+</div>
+
+  <p class="quarter-map-note">
+    Explore the streets and landmarks of Liverpool's
+    Georgian Quarter. Map data © OpenStreetMap contributors.
+  </p>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script
+  src="{{ '/assets/js/quarter-landmarks.js' | relative_url }}"
+  defer>
+</script>
+
+<script
+  src="{{ '/assets/js/quarter-boundary.js' | relative_url }}"
+  defer>
+</script>
+
+<script
+  src="{{ '/assets/js/quarter-map.js' | relative_url }}"
+  defer>
+</script>
+
+
