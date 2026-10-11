@@ -37,17 +37,52 @@ document.addEventListener("DOMContentLoaded", function () {
         "not a statutory conservation-area designation.</p>"
     );
 
-    // Add landmark markers
-    quarterLandmarks.forEach(function (place) {
+    // Points-of-interest layers
+    const poiLayers = {
+        landmarks: L.layerGroup().addTo(map),
+        pubs: L.layerGroup(),
+        theatres: L.layerGroup(),
+        restaurants: L.layerGroup(),
+        hotels: L.layerGroup(),
+        community: L.layerGroup()
+    };
 
-        L.marker(place.coords)
-            .addTo(map)
-            .bindPopup(
+    function addPOIs(places, layer) {
+        places.forEach(function (place) {
+            let popup =
                 "<strong>" + place.name + "</strong>" +
-                "<p>" + place.description + "</p>"
-            );
+                "<p>" + place.description + "</p>";
 
-    });
+            if (place.url) {
+                popup +=
+                    '<p><a href="' + place.url +
+                    '">Read more →</a></p>';
+            }
+
+            L.marker(place.coords)
+                .addTo(layer)
+                .bindPopup(popup);
+        });
+    }
+
+    // Historic landmarks
+    addPOIs(quarterLandmarks, poiLayers.landmarks);
+
+    // Pubs
+    addPOIs(quarterPubs, poiLayers.pubs);
+
+    // Leaflet layer selector
+    L.control.layers(null, {
+        "Historic landmarks": poiLayers.landmarks,
+        "Pubs & bars": poiLayers.pubs,
+        "Theatres & arts": poiLayers.theatres,
+        "Restaurants & cafés": poiLayers.restaurants,
+        "Hotels": poiLayers.hotels,
+        "Community facilities": poiLayers.community
+    }, {
+        collapsed: false,
+        position: "topright"
+    }).addTo(map);
 
     // Automatically centre and zoom to the Georgian Quarter boundary
     map.fitBounds(boundaryLayer.getBounds(), {
