@@ -118,7 +118,6 @@ a:focus-visible {
 }
 
 /* Interactive map */
-
 .quarter-map-wrapper {
     margin: 1.5rem 0 2rem;
 }
@@ -142,3 +141,22 @@ a:focus-visible {
         height: 340px;
     }
 }
+
+
+/* Georgian Quarter POI markers */
+.gq-poi-icon {
+    background: transparent;
+    border: none;
+}
+
+.gq-poi-marker {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    box-sizing: border-box;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.45);
+}
+
+

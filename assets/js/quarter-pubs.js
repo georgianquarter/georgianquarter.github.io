@@ -1,12 +1,18 @@
 const quarterPubs = [
     {
-        name: "Test Pub 1",
-        coords: [53.4010, -2.9700],
-        description: "Temporary marker for testing the pubs layer."
+        name: "Ye Cracke",
+        coords: [53.40050754465122, -2.971933490196305],
+        description: "TBD."
     },
     {
-        name: "Test Pub 2",
-        coords: [53.3990, -2.9660],
-        description: "Second temporary marker for testing."
+        name: "The Belvedere",
+        coords: [53.400179410981565, -2.9696545362224125],
+        description: "TBD"
+    },
+    {
+        name: "Papillon",
+        coords: [53.400473958634805, -2.9707456425546135],
+        description: "TBD."
     }
+
 ];

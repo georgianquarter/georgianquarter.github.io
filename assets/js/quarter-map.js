@@ -47,29 +47,101 @@ document.addEventListener("DOMContentLoaded", function () {
         community: L.layerGroup()
     };
 
-    function addPOIs(places, layer) {
-        places.forEach(function (place) {
-            let popup =
-                "<strong>" + place.name + "</strong>" +
-                "<p>" + place.description + "</p>";
 
-            if (place.url) {
-                popup +=
-                    '<p><a href="' + place.url +
-                    '">Read more →</a></p>';
-            }
+    const poiColours = {
+        landmarks: "#D6C4A5",   // Sandstone
+        pubs: "#A45D4B",        // Brick
+        theatres: "#7952A3",    // Purple
+        restaurants: "#43865C", // Green
+        hotels: "#3978A8",      // Blue
+        community: "#358B91"    // Teal
+    };
 
-            L.marker(place.coords)
-                .addTo(layer)
-                .bindPopup(popup);
+    /*
+    function poiIcon(category) {
+        return L.divIcon({
+            className: "gq-poi-icon",
+            html: `<span style="background-color: ${poiColours[category]}"></span>`,
+            iconSize: [20, 20],
+            iconAnchor: [10, 10],
+            popupAnchor: [0, -12]
+        });
+    }
+    */
+
+
+    function poiIcon(category) {
+        const colour = poiColours[category] || "#66777D";
+
+        return L.divIcon({
+            className: "gq-poi-icon",
+            html: `<span class="gq-poi-marker"
+                         style="background-color: ${colour};"></span>`,
+            iconSize: [20, 20],
+            iconAnchor: [10, 10],
+            popupAnchor: [0, -12]
         });
     }
 
-    // Historic landmarks
-    addPOIs(quarterLandmarks, poiLayers.landmarks);
 
-    // Pubs
-    addPOIs(quarterPubs, poiLayers.pubs);
+    function escapeHTML(value) {
+        return String(value ?? "").replace(/[&<>"']/g, function (character) {
+            return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            }[character];
+        });
+    }
+
+    function addPOIs(places, layer, category) {
+        places.forEach(function (place) {
+            if (
+                !Array.isArray(place.coords) ||
+                place.coords.length !== 2 ||
+                !place.coords.every(Number.isFinite)
+            ) {
+                console.warn("Invalid POI coordinates:", place);
+                return;
+            }
+
+            let popup = `<strong>${escapeHTML(place.name)}</strong>`;
+
+            if (place.description) {
+                popup += `<p>${escapeHTML(place.description)}</p>`;
+            }
+
+            if (place.url) {
+                try {
+                    const url = new URL(place.url, window.location.origin);
+
+                    if (["http:", "https:"].includes(url.protocol)) {
+                        popup += `<p><a href="${escapeHTML(url.href)}"
+                            target="_blank" rel="noopener noreferrer">
+                            Read more →</a></p>`;
+                    }
+                } catch (error) {
+                    console.warn("Invalid POI URL:", place.url);
+                }
+            }
+
+            L.marker(place.coords, {
+                icon: poiIcon(category),
+                title: place.name
+            }).addTo(layer).bindPopup(popup);
+
+        });
+    }
+
+
+    addPOIs(quarterLandmarks, poiLayers.landmarks, "landmarks");
+    addPOIs(quarterPubs, poiLayers.pubs, "pubs");
+    //addPOIs(quarterTheatres, poiLayers.theatres, "theatres");
+    //addPOIs(quarterRestaurants, poiLayers.restaurants, "restaurants");
+    //addPOIs(quarterHotels, poiLayers.hotels, "hotels");
+    //addPOIs(quarterCommunity, poiLayers.community, "community");
 
     // Leaflet layer selector
     L.control.layers(null, {
